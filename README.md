@@ -50,7 +50,7 @@ class _ExampleState extends State<Example> with AfterInitMixin<Example> {
   @override
   void didInitState() {
     // No need to call super.didInitState().
-    // setState() is not required because build() will automatically be called.
+    // setState() is not required because build() will automatically be called by Flutter.
     size = MediaQuery.of(context).size;
   }
 
