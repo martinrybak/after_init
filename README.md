@@ -21,24 +21,36 @@ This package consists of a simple mixin on the `State` class that provides a new
 import 'package:flutter/widgets.dart';
 import 'package:after_init/after_init.dart';
 
+void main() {
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        body: Example(),
+      ),
+    ),
+  );
+}
+
 class Example extends StatefulWidget {
   @override
   _ExampleState createState() => _ExampleState();
 }
 
 class _ExampleState extends State<Example> with AfterInitMixin<Example> {
-  
+  Size size;
+
   /// This gets called first, as usual.
   @override
   void initState() {
     super.initState();
   }
-  
+
   /// This gets called after initState(), only once.
   /// Safely access inherited widgets here.
   @override
   void didInitState() {
-    print(MediaQuery.of(context).size);
+    // setState() is not required because build() will automatically be called.
+    size = MediaQuery.of(context).size;
   }
 
   /// This gets called after didInitState().
@@ -47,14 +59,26 @@ class _ExampleState extends State<Example> with AfterInitMixin<Example> {
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
-  
+
   /// Finally this gets called, as usual.
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Text(size.toString()),
+    );
   }
 }
 ```
+This is just a simplistic example. You would normally do something more useful in `didInitState()`, such as access setup data that comes from an `InheritedWidget`.
+
+## Method Order
+This library invokes `State` methods in the following order:
+
+1. `initState()`
+1. `didInitState()`
+1. `didChangeDependencies()`
+2. `build()`
+
 ## Alternative
 
 A typical workaround for the `initState()` limitation is to delay execution of the code that needs to access `InheritedWidget`:
@@ -69,12 +93,7 @@ void didInitState() {
 
 ```
 
-However, this will cause your code to execute *after* the `build()` method, which may not be what you want. In contrast, this library executes in the following order:
-
-1. `initState()`
-1. `didInitState()`
-1. `didChangeDependencies()`
-2. `build()`
+However, this will cause your code to execute *after* the `build()` method, which may not be what you want.
 
 ## Unit Tests
 
