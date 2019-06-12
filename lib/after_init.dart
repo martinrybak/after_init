@@ -1,7 +1,18 @@
 library after_init;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:flutter/widgets.dart';
+
+mixin AfterInitMixin<T extends StatefulWidget> on State<T> {
+  bool _didInit = false;
+
+  @override
+  void didChangeDependencies() {
+    if (!_didInit) {
+      didInitState();
+      _didInit = true;
+    }
+    super.didChangeDependencies();
+  }
+
+  void didInitState();
 }
