@@ -85,7 +85,8 @@ A typical workaround for the `initState()` limitation is to delay execution of t
 
 ```
 @override
-void didInitState() {
+void initState() {
+  super.initState();
   WidgetsBinding.instance.addPostFrameCallback((_) {
     print(MediaQuery.of(context).size);
   });

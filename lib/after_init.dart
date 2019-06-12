@@ -16,6 +16,6 @@ mixin AfterInitMixin<T extends StatefulWidget> on State<T> {
     super.didChangeDependencies();
   }
 
-  /// This will onlybe invoked once, after [initState], and before [didChangeDependencies].
+  /// This will only be invoked once, after [initState], and before [didChangeDependencies].
   void didInitState();
 }
