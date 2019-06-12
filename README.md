@@ -49,6 +49,7 @@ class _ExampleState extends State<Example> with AfterInitMixin<Example> {
   /// Safely access inherited widgets here.
   @override
   void didInitState() {
+    // No need to call super.didInitState().
     // setState() is not required because build() will automatically be called.
     size = MediaQuery.of(context).size;
   }
