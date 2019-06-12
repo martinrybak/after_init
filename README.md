@@ -15,6 +15,16 @@ Adds a `didInitState()` method to stateful widgets where you can safely access i
 
 This package consists of a simple mixin on the `State` class that provides a new method called `didInitState()`. It is only called exactly **once**, after `initState()`, and before `didChangeDependencies()` and `build()`. You can safely access `InheritedWidgets` from this method, and use them to perform any setup tasks for your widget.
 
+## Method Order
+This library invokes `State` methods in the following order:
+
+1. `initState()`
+1. `didInitState()`
+1. `didChangeDependencies()`
+1. `build()`
+
+Learn more about the [Stateful Widget Lifecycle](https://flutterbyexample.com/stateful-widget-lifecycle/).
+
 ## Example
 
 ```
@@ -71,14 +81,6 @@ class _ExampleState extends State<Example> with AfterInitMixin<Example> {
 }
 ```
 This is just a simplistic example. You would normally do something more useful in `didInitState()`, such as access setup data or subscribe to a `Stream` that comes from an `InheritedWidget`.
-
-## Method Order
-This library invokes `State` methods in the following order:
-
-1. `initState()`
-1. `didInitState()`
-1. `didChangeDependencies()`
-2. `build()`
 
 ## Alternative
 
