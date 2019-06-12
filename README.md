@@ -28,7 +28,7 @@ Learn more about the [Stateful Widget Lifecycle](https://flutterbyexample.com/st
 ## Example
 
 ```
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:after_init/after_init.dart';
 
 void main() {
