@@ -1,5 +1,5 @@
 name: after_init
-description: Adds a didInitState() method to StatelessWidget where you can safely access InheritedWidgets.
+description: Adds a didInitState() method to stateful widgets where you can safely access inherited widgets.
 version: 0.1.0
 author: Martin Rybak <martin.rybak@gmail.com>
 homepage: https://github.com/vgventures/after_init
