@@ -64,15 +64,17 @@ void main() {
     verify(mock.bar()).called(1);
   });
 
-  testWidgets('method order is: initState(), didInitState(), didChangeDependencies()', (WidgetTester tester) async {
+  testWidgets('method order is: initState(), didInitState(), didChangeDependencies(), build()', (WidgetTester tester) async {
     //Arrange
     final mock1 = MockObject();
     final mock2 = MockObject();
     final mock3 = MockObject();
+    final mock4 = MockObject();
     final widget = TestWidget(
       onInitState: () => mock1.bar(),
       onDidInitState: () => mock2.bar(),
       onDidChangeDependencies: () => mock3.bar(),
+      onBuild: () => mock4.bar(),
     );
 
     //Act
@@ -83,6 +85,7 @@ void main() {
       mock1.bar(),
       mock2.bar(),
       mock3.bar(),
+      mock4.bar(),
     ]);
   });
 }
@@ -95,12 +98,14 @@ class TestWidget extends StatefulWidget {
   final Function() onInitState;
   final Function() onDidInitState;
   final Function() onDidChangeDependencies;
+  final Function() onBuild;
 
   const TestWidget({
     Key key,
     this.onInitState,
     this.onDidInitState,
     this.onDidChangeDependencies,
+    this.onBuild,
   }) : super(key: key);
 
   @override
@@ -108,10 +113,6 @@ class TestWidget extends StatefulWidget {
 }
 
 class _TestWidgetState extends State<TestWidget> with AfterInitMixin<TestWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
 
   @override
   void initState() {
@@ -128,5 +129,11 @@ class _TestWidgetState extends State<TestWidget> with AfterInitMixin<TestWidget>
   void didChangeDependencies() {
     super.didChangeDependencies();
     widget.onDidChangeDependencies?.call();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    widget.onBuild?.call();
+    return Container();
   }
 }
