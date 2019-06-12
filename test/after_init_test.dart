@@ -120,7 +120,7 @@ class _TestWidgetState extends State<TestWidget> with AfterInitMixin<TestWidget>
   }
 
   @override
-  void afterInit() {
+  void didInitState() {
     widget.onDidInitState?.call();
   }
 
