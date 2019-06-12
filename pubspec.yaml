@@ -1,8 +1,8 @@
 name: after_init
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: Adds a didInitState() method to StatelessWidget where you can safely access InheritedWidgets.
+version: 0.1.0
+author: Martin Rybak
+homepage: https://github.com/vgventures/after_init
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
