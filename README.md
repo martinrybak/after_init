@@ -1,14 +1,85 @@
 # after_init
 
-A new Flutter package project.
+Adds a `didInitState()` method to stateful widgets where you can safely access inherited widgets.
 
-## Getting Started
+![](after_init.png)
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+[InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) is heavily used throughout the Flutter framework. Many state management packages such as [ScopedModel](https://pub.dev/packages/scoped_model) and [Provider](https://pub.dev/packages/provider) use it as well. Unfortunately, `InheritedWidgets` are not accessible from the `initState()` method of `State`. The [Flutter documentation](https://api.flutter.dev/flutter/widgets/State/initState.html) states:
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```
+/// You cannot use [BuildContext.inheritFromWidgetOfExactType] from this
+/// method. However, [didChangeDependencies] will be called immediately
+/// following this method, and [BuildContext.inheritFromWidgetOfExactType] can
+/// be used there.
+```
+
+This package consists of a simple mixin on the `State` class that provides a new method called `didInitState()`. It is only called exactly **once**, after `initState()`, and before `didChangeDependencies()` and `build()`. You can safely access `InheritedWidgets` from this method, and use them to perform any setup work for your widget.
+
+## Example
+
+```
+import 'package:flutter/widgets.dart';
+import 'package:after_init/after_init.dart';
+
+class Example extends StatefulWidget {
+  @override
+  _ExampleState createState() => _ExampleState();
+}
+
+class _ExampleState extends State<Example> with AfterInitMixin<Example> {
+  
+  /// This gets called first, as usual.
+  @override
+  void initState() {
+    super.initState();
+  }
+  
+  /// This gets called after initState(), only once.
+  /// Safely access inherited widgets here.
+  @override
+  void didInitState() {
+    print(MediaQuery.of(context).size);
+  }
+
+  /// This gets called after didInitState().
+  /// And anytime the widget's dependencies change, as usual.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+  
+  /// Finally this gets called, as usual.
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+```
+## Alternative
+
+A typical workaround for the `initState()` limitation is to delay execution of the code that needs to access `InheritedWidget`:
+
+```
+@override
+void didInitState() {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    print(MediaQuery.of(context).size);
+  });
+}
+
+```
+
+However, this will cause your code to execute *after* the `build()` method, which may not be what you want. In contrast, this library executes in the following order:
+
+1. `initState()`
+1. `didInitState()`
+1. `didChangeDependencies()`
+2. `build()`
+
+## Unit Tests
+
+This package comes with unit tests that verify that `didInitState()` only gets called once and that `State` methods are invoked in the order specified above.
+
+## Credits
+
+This package was inspired by the [after_layout](https://pub.dev/packages/after_layout) package.
