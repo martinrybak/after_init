@@ -13,7 +13,7 @@ Adds a `didInitState()` method to stateful widgets where you can safely access i
 /// be used there.
 ```
 
-This package consists of a simple mixin on the `State` class that provides a new method called `didInitState()`. It is only called exactly **once**, after `initState()`, and before `didChangeDependencies()` and `build()`. You can safely access `InheritedWidgets` from this method, and use them to perform any setup work for your widget.
+This package consists of a simple mixin on the `State` class that provides a new method called `didInitState()`. It is only called exactly **once**, after `initState()`, and before `didChangeDependencies()` and `build()`. You can safely access `InheritedWidgets` from this method, and use them to perform any setup tasks for your widget.
 
 ## Example
 
@@ -70,7 +70,7 @@ class _ExampleState extends State<Example> with AfterInitMixin<Example> {
   }
 }
 ```
-This is just a simplistic example. You would normally do something more useful in `didInitState()`, such as access setup data that comes from an `InheritedWidget`.
+This is just a simplistic example. You would normally do something more useful in `didInitState()`, such as access setup data or subscribe to a `Stream` that comes from an `InheritedWidget`.
 
 ## Method Order
 This library invokes `State` methods in the following order:
