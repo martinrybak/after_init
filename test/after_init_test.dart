@@ -46,7 +46,7 @@ void main() {
     verify(mock.bar()).called(1);
   });
 
-  testWidgets('didInitState() is called exactly once even if didChangeDependencies() is called again', (WidgetTester tester) async {
+  testWidgets('didInitState() is called exactly once even if didChangeDependencies() is called multiple times', (WidgetTester tester) async {
     //Arrange
     final key = GlobalKey<_TestWidgetState>();
     final mock = MockObject();
