@@ -3,13 +3,13 @@ library after_init;
 import 'package:flutter/widgets.dart';
 
 mixin AfterInitMixin<T extends StatefulWidget> on State<T> {
-  bool _didInit = false;
+  bool _didInitState = false;
 
   @override
   void didChangeDependencies() {
-    if (!_didInit) {
+    if (!_didInitState) {
       didInitState();
-      _didInit = true;
+      _didInitState = true;
     }
     super.didChangeDependencies();
   }
