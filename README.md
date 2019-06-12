@@ -53,6 +53,7 @@ class _ExampleState extends State<Example> with AfterInitMixin<Example> {
   @override
   void initState() {
     super.initState();
+    // Your code here
   }
 
   /// This gets called after initState(), only once.
@@ -69,6 +70,7 @@ class _ExampleState extends State<Example> with AfterInitMixin<Example> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // Your code here
   }
 
   /// Finally this gets called, as usual.
