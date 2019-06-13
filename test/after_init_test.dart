@@ -64,7 +64,7 @@ void main() {
     verify(mock.bar()).called(1);
   });
 
-  testWidgets('method order is: initState(), didInitState(), didChangeDependencies(), build()', (WidgetTester tester) async {
+  testWidgets('lifecycle method order is: initState(), didInitState(), didChangeDependencies(), build()', (WidgetTester tester) async {
     //Arrange
     final mock1 = MockObject();
     final mock2 = MockObject();
@@ -90,10 +90,13 @@ void main() {
   });
 }
 
+/// Fake class to mock.
 class Foo { void bar(){} }
 
+/// Mock for verifying callback invocations.
 class MockObject extends Mock implements Foo {}
 
+/// Test widget which provides callbacks for [State] lifecycle events.
 class TestWidget extends StatefulWidget {
   final Function() onInitState;
   final Function() onDidInitState;
