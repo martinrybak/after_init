@@ -1,6 +1,6 @@
 # after_init
 
-Adds a `didInitState()` method to stateful widgets where you can safely access inherited widgets.
+Adds a `didInitState()` lifecycle method to stateful widgets where you can safely access inherited widgets.
 
 ![](after_init.png)
 
