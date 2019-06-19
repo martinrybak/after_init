@@ -8,6 +8,7 @@ mixin AfterInitMixin<T extends StatefulWidget> on State<T> {
   bool _didInitState = false;
 
   @override
+  @mustCallSuper
   void didChangeDependencies() {
     if (!_didInitState) {
       didInitState();
