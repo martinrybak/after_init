@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Added support for null safety
+
 ## 0.1.2
 
 * Added pubspec to example
