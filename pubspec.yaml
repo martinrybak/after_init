@@ -1,11 +1,10 @@
 name: after_init
 description: Adds a didInitState() lifecycle method to stateful widgets where you can safely access inherited widgets.
-version: 0.1.2
-author: Martin Rybak <martin.rybak@gmail.com>
-homepage: https://github.com/vgventures/after_init
+version: 0.2.0
+homepage: https://github.com/martinrybak/after_init
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -14,8 +13,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter                    # Widget testing
-  mockito: ^4.0.0                   # Mocking framework
-  pedantic: ^1.5.0                  # Static analysis rules
+  mocktail: ^1.0.3                  # Mocking framework
+  lints: ^4.0.0                     # Static analysis rules
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
