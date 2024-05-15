@@ -17,7 +17,7 @@ class Example extends StatefulWidget {
 }
 
 class _ExampleState extends State<Example> with AfterInitMixin<Example> {
-  Size size;
+  late Size size;
 
   /// This gets called first, as usual.
   @override
